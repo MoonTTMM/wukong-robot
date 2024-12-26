@@ -25,10 +25,13 @@ def initDetector(wukong):
         keyword_paths = config.get("/porcupine/keyword_paths")
         keywords = config.get("/porcupine/keywords", ["porcupine"])
         if keyword_paths:
+            model_path = os.path.join(CONFIG_PATH, "porcupine_params_zh.pv")
+            print(f"load model path {model_path}")
             porcupine = pvporcupine.create(
                 access_key=access_key,
                 keyword_paths=[constants.getConfigData(kw) for kw in keyword_paths],
                 sensitivities=[config.get("sensitivity", 0.5)] * len(keyword_paths),
+                model_path=model_path
             )
         else:
             porcupine = pvporcupine.create(
