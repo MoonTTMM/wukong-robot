@@ -591,7 +591,7 @@ class AgentRobot(AbstractRobot):
             url = "http://192.168.29.116/v1/workflows/run"
 
             body = {
-                "input": {
+                "inputs": {
                     "query": texts
                 },
                 "user": self.userid
