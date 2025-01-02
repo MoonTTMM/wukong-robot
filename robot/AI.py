@@ -567,7 +567,7 @@ class CozeRobot(AbstractRobot):
 
 
 class AgentRobot(AbstractRobot):
-    SLUG = "agent_dify"
+    SLUG = "dify"
 
     def __init__(self, token, **kwargs):
         super(self.__class__, self).__init__()
