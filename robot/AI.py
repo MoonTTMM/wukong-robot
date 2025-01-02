@@ -565,6 +565,61 @@ class CozeRobot(AbstractRobot):
             )
             return "抱歉, 扣子回答失败"
 
+
+class AgentRobot(AbstractRobot):
+    SLUG = "agent_dify"
+
+    def __init__(self, token, **kwargs):
+        super(self.__class__, self).__init__()
+        self.token = token
+        self.userid = str(get_mac())[:32]
+
+    @classmethod
+    def get_config(cls):
+        return config.get("dify", {})
+
+    def chat(self, texts, parsed=None):
+        """
+        使用dify回答问题
+
+        Arguments:
+        texts -- user input, typically speech, to be parsed by a module
+        """
+        msg = "".join(texts)
+        msg = utils.stripPunctuation(msg)
+        try:
+            url = "https://192.168.63.183/v1/workflows/run"
+
+            body = {
+                "input": {
+                    "query": texts
+                },
+                "user": self.userid
+            }
+            headers = {
+                "Authorization": "Bearer " + self.token,
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Connection": "keep-alive"
+            }
+            r = requests.post(url, headers=headers, json=body)
+            respond = json.loads(r.text)
+            result = ""
+            logger.info(f"{self.SLUG} 回答：{respond}")
+            if "data" in respond:
+                result = respond["data"]["outputs"]["text"].replace("\n", "").replace("\r", "")
+            else:
+                result = "抱歉，回答失败"
+            if result == "":
+                result = "抱歉，回答失败"
+            logger.info(f"{self.SLUG} 回答：{result}")
+            return result
+        except Exception:
+            logger.critical(
+                "Tuling robot failed to response for %r", msg, exc_info=True
+            )
+            return "抱歉, 回答失败"
+
 def get_unknown_response():
     """
     不知道怎么回答的情况下的答复

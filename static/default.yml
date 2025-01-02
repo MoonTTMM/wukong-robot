@@ -249,7 +249,10 @@ nlu_engine: unit
 # openai    - OpenAI ChatGPT
 # anyq      - AnyQ
 # tuling    - 图灵机器人
-robot: bing
+robot: dify
+
+dify:
+    token: "app-XkZiWDajYtyEDvwv5HT2XpHG"
 
 
 # 必应 bing
