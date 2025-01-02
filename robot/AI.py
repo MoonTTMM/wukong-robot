@@ -588,7 +588,7 @@ class AgentRobot(AbstractRobot):
         msg = "".join(texts)
         msg = utils.stripPunctuation(msg)
         try:
-            url = "https://192.168.29.116/v1/workflows/run"
+            url = "http://192.168.29.116/v1/workflows/run"
 
             body = {
                 "input": {
