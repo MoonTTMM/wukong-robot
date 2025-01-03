@@ -42,6 +42,7 @@ def initDetector(wukong):
             )
 
         recorder = PvRecorder(device_index=-1, frame_length=512, buffer_size_msec=2000)
+        logger.info("读取buffer：" + str(porcupine.frame_length))
         recorder.start()
 
         try:
