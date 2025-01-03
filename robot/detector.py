@@ -42,7 +42,7 @@ def initDetector(wukong):
                 sensitivities=[config.get("sensitivity", 0.5)] * len(keywords),
             )
 
-        recorder = PvRecorder(device_index=-1, frame_length=porcupine.frame_length, buffer_size_msec=2000)
+        recorder = PvRecorder(device_index=-1, frame_length=porcupine.frame_length)
         logger.info("读取buffer：" + str(porcupine.frame_length))
         recorder.start()
 
